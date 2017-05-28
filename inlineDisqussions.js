@@ -36,7 +36,8 @@ var disqus_url;
         background: 'white',
         minWidth: 300,
         maxWidth: 9999,
-        path: window.location.pathname
+        path: window.location.pathname,
+        permalink: window.location.href
       };
 
       // Overwrite default options with user provided ones.
@@ -93,9 +94,9 @@ var disqus_url;
     // Create the discussion note.
     var cls = settings.highlighted ? 'disqussion-link disqussion-highlight' : 'disqussion-link';
     var a = $('<a class="' + cls + '" />')
-      .attr('href', window.location.pathname + settings.identifier + '-'  + i + '#disqus_thread')
+      .attr('href', settings.permalink + settings.identifier + '-'  + i + '#disqus_thread')
       .attr('data-disqus-identifier', identifier)
-      .attr('data-disqus-url', window.location.href + settings.identifier + '-' + i)
+      .attr('data-disqus-url', settings.permalink + settings.identifier + '-' + i)
       .attr('data-disqus-position', settings.position)
       .text('+')
       .wrap('<div class="disqussion" />')
@@ -146,7 +147,9 @@ var disqus_url;
     if ($('a.main-disqussion-link').length === 0) {
 
       var a = $('<a class="main-disqussion-link" />')
-        .attr('href', window.location.pathname + '#disqus_thread')
+        .attr('href', settings.permalink + '#disqus_thread')
+        .attr('data-disqus-identifier', disqus_identifier)
+        .attr('data-disqus-url', disqus_url)
         .text('Comments')
         .wrap('<h2 class="main-disqussion-link-wrp" />')
         .parent()
