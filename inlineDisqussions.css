@@ -58,6 +58,13 @@
 .disqussion:hover a:after, .disqussion.hovered a:after {
   border-top-color: #999999;
 }
+.disqussion.inline {
+  position: relative;
+  margin-top: -20px;
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
 
 #disqussions_wrapper {
   position: absolute;

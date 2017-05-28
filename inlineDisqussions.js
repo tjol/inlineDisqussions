@@ -31,6 +31,8 @@ var disqus_url;
         displayCount: true,
         highlighted: false,
         position: 'right',
+        linkPosition: 'outside',
+        margin: 0,
         background: 'white',
         minWidth: 300,
         maxWidth: 9999,
@@ -66,7 +68,7 @@ var disqus_url;
 
       // Hide the discussion.
       $('html').click(function(event) {
-        if($(event.target).parents('#disqussions_wrapper, .main-disqussion-link-wrp').length === 0) {
+        if($(event.target).parents('#disqussions_wrapper, .main-disqussion-link-wrp, .disqussion').length === 0) {
           hideDisqussion();
         }
       });
@@ -97,14 +99,22 @@ var disqus_url;
       .attr('data-disqus-position', settings.position)
       .text('+')
       .wrap('<div class="disqussion" />')
-      .parent()
-      .appendTo('#disqussions_wrapper');
-    a.css({
-      'top': getBetterTopOffset(node),
-      'left': (settings.position == 'right' ?
-                                    getBetterLeftOffset(node) + node.outerWidth()
-                                  : getBetterLeftOffset(node) - a.outerWidth())
-    });
+      .parent();
+    if (settings.linkPosition == 'inline') {
+      a.css({
+        'float': settings.position,
+        })
+       .addClass("inline")
+       .insertAfter(node);
+    } else { // outside (classic)
+      a.appendTo('#disqussions_wrapper')
+       .css({
+          'top': getBetterTopOffset(node),
+          'left': (settings.position == 'right' ?
+                                        getBetterLeftOffset(node) + node.outerWidth()
+                                      : getBetterLeftOffset(node) - a.outerWidth())
+        });
+     }
 
     node.attr('data-disqus-identifier', identifier).mouseover(function() {
         a.addClass("hovered");
@@ -253,7 +263,7 @@ var disqus_url;
     if (el.attr('data-disqus-position') == 'right') {
       animate = {
         "top": getBetterTopOffset(el),
-        "left": getBetterLeftOffset(el) + el.outerWidth(),
+        "left": getBetterLeftOffset(el) + el.outerWidth() + settings.margin,
         "width": Math.max(Math.min(parseInt($(window).width() - (el.offset().left + el.outerWidth()), 10),
                                    settings.maxWidth),
                           settings.minWidth)
@@ -262,7 +272,7 @@ var disqus_url;
     else if (el.attr('data-disqus-position') == 'left') {
       animate = {
         "top": getBetterTopOffset(el),
-        "left": getBetterLeftOffset(el) - Math.min(parseInt(getBetterLeftOffset(el), 10), settings.maxWidth),
+        "left": getBetterLeftOffset(el) - Math.min(parseInt(getBetterLeftOffset(el), 10), settings.maxWidth) - settings.margin,
         "width": Math.max(Math.min(parseInt(el.offset().left, 10), settings.maxWidth),
                           settings.minWidth)
       };

@@ -55,6 +55,12 @@ $color: #fff;
       border-top-color: $bg-hover;
     }
   }
+  &.inline {
+    position: relative;
+    margin-top: -20px;
+    margin-right: -10px;
+    margin-left: -10px;
+  }
 }
 
 #disqussions_wrapper {
