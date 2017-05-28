@@ -32,6 +32,7 @@ var disqus_url;
         highlighted: false,
         position: 'right',
         background: 'white',
+        minWidth: 300,
         maxWidth: 9999
       };
 
@@ -252,14 +253,17 @@ var disqus_url;
       animate = {
         "top": getBetterTopOffset(el),
         "left": getBetterLeftOffset(el) + el.outerWidth(),
-        "width": Math.min(parseInt($(window).width() - (el.offset().left + el.outerWidth()), 10), settings.maxWidth)
+        "width": Math.max(Math.min(parseInt($(window).width() - (el.offset().left + el.outerWidth()), 10),
+                                   settings.maxWidth),
+                          settings.minWidth)
       };
     }
     else if (el.attr('data-disqus-position') == 'left') {
       animate = {
         "top": getBetterTopOffset(el),
         "left": getBetterLeftOffset(el) - Math.min(parseInt(getBetterLeftOffset(el), 10), settings.maxWidth),
-        "width": Math.min(parseInt(el.offset().left, 10), settings.maxWidth)
+        "width": Math.max(Math.min(parseInt(el.offset().left, 10), settings.maxWidth),
+                          settings.minWidth)
       };
     }
 
