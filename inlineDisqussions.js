@@ -70,7 +70,9 @@ var disqus_url;
       // Hide the discussion.
       $('html').click(function(event) {
         if($(event.target).parents('#disqussions_wrapper, .main-disqussion-link-wrp, .disqussion').length === 0) {
-          hideDisqussion();
+          if (!$('.main-disqussion-link').is('.active')) {
+            hideDisqussion();
+          }
         }
       });
 
@@ -298,6 +300,7 @@ var disqus_url;
 
     $('#disqus_thread').stop().fadeOut('fast');
     $('a.disqussion-link').removeClass('active');
+    $('a.main-disqussion-link').removeClass('active');
 
     // settings.highlighted
     $('#disqussions_overlay').fadeOut('fast');
