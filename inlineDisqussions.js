@@ -280,6 +280,15 @@ var disqus_url;
 
     $('#disqus_thread').stop().fadeIn('fast').animate(animate, "fast").css(css);
 
+    if ($(window).width() <= (animate.left + parseFloat($("body").css("margin-left"))
+                                          + $("body").offset().left)) {
+        setTimeout(function () {
+          $("html, body").animate({
+            scrollLeft: animate.left
+          }, 'fast');
+        }, 200);
+    }
+
   };
 
   var hideDisqussion = function() {
