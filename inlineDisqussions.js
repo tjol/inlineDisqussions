@@ -33,7 +33,8 @@ var disqus_url;
         position: 'right',
         background: 'white',
         minWidth: 300,
-        maxWidth: 9999
+        maxWidth: 9999,
+        path: window.location.pathname
       };
 
       // Overwrite default options with user provided ones.
@@ -81,10 +82,10 @@ var disqus_url;
       identifier = node.attr('data-disqus-identifier');
     }
     else {
-      while ($('[data-disqus-identifier="' + window.location.pathname + settings.identifier + '-' + i + '"]').length > 0) {
+      while ($('[data-disqus-identifier="' + settings.path + settings.identifier + '-' + i + '"]').length > 0) {
         i++;
       }
-      identifier = window.location.pathname + settings.identifier + '-' + i;
+      identifier = settings.path + settings.identifier + '-' + i;
     }
 
     // Create the discussion note.
